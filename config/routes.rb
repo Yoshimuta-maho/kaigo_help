@@ -9,16 +9,19 @@ Rails.application.routes.draw do
   end
 
   # ユーザー用のルーティング
-  devise_for :users, skip: :password, controllers: {
-    registrations: 'public/registrations',
-    sessions: 'public/sessions'
-  }
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords'
+  }, module: :users
+  
 
   root 'homes#top'
   get "/about" => "homes#about", as: "about"
 
   resources :users, only: [:edit, :destroy, :update]
   resources :genres, only: [:index]
-  resources :groups, only: [:index, :show, :create, :edit, :update, :destroy]
+  resources :groups
+  resources :posts
   resources :likes, only: [:create, :destroy]
 end
