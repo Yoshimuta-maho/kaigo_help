@@ -12,7 +12,6 @@ module Users
       @post = Post.new
     end
 
-    # 投稿作成
     def create
       @post = Post.new(post_params)
       @post.user_id = current_user.id
@@ -22,6 +21,26 @@ module Users
         render :new
       end
     end
+
+    def show
+      @post = Post.find(params[:id])  # 指定されたIDの投稿を取得
+    end
+
+    def edit
+      @post = Post.find(params[:id])
+      redirect_to posts_path, alert: '編集権限がありません。' unless @post.user == current_user
+    end
+
+    def update
+      @post = Post.find(params[:id])
+
+      if @post.update(post_params)
+        redirect_to post_path(@post), notice: '投稿が更新されました。'
+      else
+        render :edit
+      end
+    end
+
 
     private
 

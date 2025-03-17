@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <div class="card p-4 shadow-sm">
+    <!-- 投稿タイトル -->
+    <h1 class="text-center mb-4"><%= @post.title %></h1>
+
+    <!-- 投稿者情報 -->
+    <div class="d-flex align-items-center mb-3">
+      <%= image_tag(@post.user.image_icon.present? ? @post.user.image_icon : "default_icon.png", class: "rounded-circle mr-3", width: 50, height: 50) %>
+      <h5 class="mb-0">
+        <strong>投稿者:</strong> 
+        <%= link_to @post.user.name, user_path(@post.user), class: "text-dark text-decoration-none" %>
+      </h5>
+    </div>
+
+    <!-- 投稿内容 -->
+    <div class="mb-3">
+      <p class="font-weight-bold">投稿内容:</p>
+      <p class="border rounded p-3 bg-light"><%= @post.body %></p>
+    </div>
+
+    <!-- 投稿作成日 -->
+    <p class="text-muted"><strong>作成日:</strong> <%= @post.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+
+    <!-- ボタンを中央に配置 -->
+    <div class="d-flex justify-content-center mt-4">
+      <% if @post.user == current_user %>
+        <%= link_to '編集', edit_post_path(@post), class: 'btn btn-primary mx-2' %>
+      <% end %>
+      <%= link_to '戻る', posts_path, class: 'btn btn-secondary mx-2' %>
+    </div>
+  </div>
+</div>
