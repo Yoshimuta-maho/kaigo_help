@@ -41,7 +41,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_sign_up_path_for(resource)
-    users_root_path  # 新規登録後にユーザー専用トップへ遷移
+    user_path(resource)  # 新規登録後にユーザー専用トップへ遷移
   end
   
   # If you have extra params to permit, append them to the sanitizer.
@@ -63,4 +63,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation])
+  end
 end

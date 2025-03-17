@@ -38,8 +38,8 @@ class DeviseCreateLikes < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
-    add_index :likes, :email,                unique: true
-    add_index :likes, :reset_password_token, unique: true
+    # add_index :likes, :email,                unique: true
+    # add_index :likes, :reset_password_token, unique: true
     # add_index :likes, :confirmation_token,   unique: true
     # add_index :likes, :unlock_token,         unique: true
   end

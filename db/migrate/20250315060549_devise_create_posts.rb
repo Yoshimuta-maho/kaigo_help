@@ -39,8 +39,8 @@ class DeviseCreatePosts < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
-    add_index :posts, :email,                unique: true
-    add_index :posts, :reset_password_token, unique: true
+    # add_index :posts, :email,                unique: true
+    # add_index :posts, :reset_password_token, unique: true
     # add_index :posts, :confirmation_token,   unique: true
     # add_index :posts, :unlock_token,         unique: true
   end

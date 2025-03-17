@@ -39,8 +39,8 @@ class DeviseCreateGroupUsers < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
-    add_index :group_users, :email,                unique: true
-    add_index :group_users, :reset_password_token, unique: true
+    # add_index :group_users, :email,                unique: true
+    # add_index :group_users, :reset_password_token, unique: true
     # add_index :group_users, :confirmation_token,   unique: true
     # add_index :group_users, :unlock_token,         unique: true
   end

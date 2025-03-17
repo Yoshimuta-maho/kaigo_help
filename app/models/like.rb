@@ -3,4 +3,7 @@ class Like < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  belongs_to :user
+  belongs_to :post
+  belongs_to :comment
 end

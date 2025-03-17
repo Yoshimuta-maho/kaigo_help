@@ -42,8 +42,8 @@ class DeviseCreateComments < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
-    add_index :comments, :email,                unique: true
-    add_index :comments, :reset_password_token, unique: true
+    # add_index :comments, :email,                unique: true
+    # add_index :comments, :reset_password_token, unique: true
     # add_index :comments, :confirmation_token,   unique: true
     # add_index :comments, :unlock_token,         unique: true
   end

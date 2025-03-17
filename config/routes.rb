@@ -19,9 +19,14 @@ Rails.application.routes.draw do
   root 'homes#top'
   get "/about" => "homes#about", as: "about"
 
-  resources :users, only: [:edit, :destroy, :update]
+  resources :users, only: [:edit, :destroy, :update, :show]
   resources :genres, only: [:index]
   resources :groups
-  resources :posts
+  resources :posts, module: :users
+  resources :likes, only: [:create, :destroy]
+  resources :genres, only: [:index]
+  resources :groups
+  resources :posts, only: [:index], controller: 'users/posts' # すべての投稿一覧用
   resources :likes, only: [:create, :destroy]
 end
+

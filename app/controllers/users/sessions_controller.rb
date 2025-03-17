@@ -34,7 +34,7 @@ class Users::SessionsController < Devise::SessionsController
   protected
   
   def after_sign_in_path_for(resource)
-    user_path  # ユーザーログイン後にユーザー専用トップへ遷移
+    user_path(resource) # ユーザーログイン後にユーザー専用トップへ遷移
   end
 
   def after_sign_out_path_for(resource)
@@ -44,5 +44,8 @@ class Users::SessionsController < Devise::SessionsController
 
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :password])
+  end
+  def auth_options
+    { scope: resource_name, recall: "#{controller_path}#new" }
   end
 end

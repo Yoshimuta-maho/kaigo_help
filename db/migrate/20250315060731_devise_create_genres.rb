@@ -39,8 +39,8 @@ class DeviseCreateGenres < ActiveRecord::Migration[6.1]
       t.timestamps null: false
     end
 
-    add_index :genres, :email,                unique: true
-    add_index :genres, :reset_password_token, unique: true
+    # add_index :genres, :email,                unique: true
+    # add_index :genres, :reset_password_token, unique: true
     # add_index :genres, :confirmation_token,   unique: true
     # add_index :genres, :unlock_token,         unique: true
   end
