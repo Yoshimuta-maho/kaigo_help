@@ -2,19 +2,22 @@ class Users::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
 
   def create
-    # email を使ってユーザーを検索
-    self.resource = User.find_by(email: params[:user][:email])
-
-    # email が見つかった場合、パスワードを照合してサインイン
-    if self.resource && self.resource.valid_password?(params[:user][:password])
-      sign_in(resource_name, self.resource)
-      respond_with resource, location: after_sign_in_path_for(resource)
+    if params[:user].present? # params[:user] が nil でないことを確認
+      self.resource = User.find_by(email: params[:user][:email])
+  
+      if self.resource && self.resource.valid_password?(params[:user][:password])
+        sign_in(resource_name, self.resource)
+        respond_with resource, location: after_sign_in_path_for(resource)
+      else
+        flash[:alert] = '名前かパスワードが間違っています。'
+        render :new
+      end
     else
-      flash[:alert] = 'メールアドレスかパスワードが間違っています。'
+      flash[:alert] = 'フォームの送信に失敗しました。'
       render :new
     end
   end
-
+  
   protected
   
   def after_sign_in_path_for(resource)

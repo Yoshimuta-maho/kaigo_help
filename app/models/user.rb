@@ -8,6 +8,17 @@ class User < ApplicationRecord
   belongs_to :group, optional: true
   belongs_to :group_user, optional: true
 
+    def update_without_current_password(params, *options)
+      params.delete(:current_password)
+      if params[:password].blank? && params[:password_confirmation].blank?
+        params.delete(:password)
+        params.delete(:password_confirmation)
+      end
+      result = update(params, *options)
+      clean_up_password
+      result
+    end
+
   def admin?
     self.admin
   end
