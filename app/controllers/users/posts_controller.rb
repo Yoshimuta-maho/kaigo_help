@@ -41,6 +41,15 @@ module Users
       end
     end
 
+    def destroy
+      @post = Post.find(params[:id])
+      if @post.destroy
+        redirect_to posts_path, notice: '投稿は正常に削除されました。'
+      else
+        redirect_to posts_path, alert: '投稿の削除に失敗しました。'
+      end
+    end
+
 
     private
 

@@ -1,26 +1,30 @@
-<h2>Log in</h2>
+<h2 class="text-center mb-4">ログイン</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :名前 %><br />
-    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
-  </div>
+<%= form_with(model: resource, url: session_path(resource_name), local: true) do |f| %>
+  <div class="container">
+    <div class="card shadow-sm p-4">
+      <div class="form-group mb-3">
+        <%= f.label :email, class: "form-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :パスワード %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <div class="form-group mb-3">
+        <%= f.label :password, class: "form-label" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :この情報を維持する %>
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, class: "form-check-label" %>
+        </div>
+        <%= link_to "パスワードをお忘れですか?", new_user_password_path, class: "btn btn-link" %>
+      </div>
+
+      <!-- ボタンを中央配置 -->
+      <div class="text-center">
+        <%= f.submit "ログイン", class: "btn btn-primary" %>
+      </div>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "会員として入場する" %>
   </div>
 <% end %>
-
-<%= render "users/shared/links" %>

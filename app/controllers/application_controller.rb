@@ -6,23 +6,20 @@ class ApplicationController < ActionController::Base
     current_user && current_user.admin?  # ユーザーが管理者なら true を返す
   end
 
-  before_action :hide_user_name_for_admin
-
+  # ログイン後のリダイレクト先
   def after_sign_in_path_for(resource)
-    about_path
+    # Rails.logger.debug "Redirecting to: #{user_path(resource)}"
+    user_path(resource)  # ログイン後に自分の詳細ページにリダイレクト
   end
   
-  def after_sign_in_path_for(resource)
-    about_path
-  end
-
+  # ログアウト後のリダイレクト先
   def after_sign_out_path_for(resource)
-    about_path
+    about_path  # ログアウト後に「about」ページにリダイレクト
   end
 
   private
 
   def hide_user_name_for_admin
-      @hide_user_name = request.path.start_with?('/admin')
+    @hide_user_name = request.path.start_with?('/admin')
   end
 end
