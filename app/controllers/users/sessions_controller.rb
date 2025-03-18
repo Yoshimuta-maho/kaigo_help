@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
         sign_in(resource_name, self.resource)
         respond_with resource, location: after_sign_in_path_for(resource)
       else
-        flash[:alert] = '名前かパスワードが間違っています。'
+        flash[:alert] = 'メールアドレスかパスワードが間違っています。'
         render :new
       end
     else
@@ -22,10 +22,6 @@ class Users::SessionsController < Devise::SessionsController
   
   def after_sign_in_path_for(resource)
     user_path(resource) # ユーザーログイン後にユーザー専用トップへ遷移
-  end
-
-  def after_sign_out_path_for(resource)
-    new_user_session_path  # ログアウト後はログイン画面へ
   end
 
   private

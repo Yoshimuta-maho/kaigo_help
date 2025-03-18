@@ -39,6 +39,7 @@
 
   <div class="form-group mt-4">
     <%= f.submit '更新する', class: 'btn btn-primary' %>
+    <%= link_to "退会", user_path(@user), method: :delete, data: { confirm: "本当に退会しますか？" }, class: "btn btn-danger flex-shrink-0 mt-3" %>
   </div>
 <% end %>
 

@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   belongs_to :group, optional: true
   belongs_to :group_user, optional: true
+  
+  validates :name, presence: true
 
     def update_without_current_password(params, *options)
       params.delete(:current_password)
