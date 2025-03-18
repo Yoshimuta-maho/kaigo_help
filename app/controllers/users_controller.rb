@@ -8,13 +8,23 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user # ここで現在のユーザーを直接設定
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user), alert: '他のユーザーの情報は編集できません。'
+    end
   end
 
   def update
-    @user = current_user # ここでも現在のユーザーを取得
+    @user = User.find(params[:id])
+  
+    # 他のユーザーの情報を更新しようとした場合、自分のマイページにリダイレクト
+    unless @user == current_user
+      redirect_to user_path(current_user), alert: '他のユーザーの情報は編集できません。'
+      return
+    end
+  
+    # パスワードが空の場合、パスワードの変更なしで更新
     if user_params[:password].blank? && user_params[:password_confirmation].blank?
-      # パスワードが空の場合、パスワードの変更なしで更新
       user_params.delete(:password)
       user_params.delete(:password_confirmation)
     end
@@ -25,6 +35,7 @@ class UsersController < ApplicationController
       render :edit
     end
   end
+  
 
   def destroy
     @user = current_user # ここでも現在のユーザーを取得

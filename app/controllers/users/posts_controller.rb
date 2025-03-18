@@ -16,7 +16,7 @@ module Users
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       if @post.save
-        redirect_to posts_path, notice: '投稿が作成されました。'
+        redirect_to post_path(@post), notice: '投稿が作成されました。。'
       else
         render :new
       end
@@ -44,7 +44,7 @@ module Users
     def destroy
       @post = Post.find(params[:id])
       if @post.destroy
-        redirect_to posts_path, notice: '投稿は正常に削除されました。'
+        redirect_to user_path(current_user), notice: '投稿は正常に削除されました。'
       else
         redirect_to posts_path, alert: '投稿の削除に失敗しました。'
       end

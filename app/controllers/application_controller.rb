@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user, :admin_signed_in?
   before_action :hide_user_name_for_admin
+  
 
   def admin_signed_in?
     current_user && current_user.admin?  # ユーザーが管理者なら true を返す
@@ -21,5 +22,9 @@ class ApplicationController < ActionController::Base
 
   def hide_user_name_for_admin
     @hide_user_name = request.path.start_with?('/admin')
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 end

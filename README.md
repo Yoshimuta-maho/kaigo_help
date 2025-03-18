@@ -18,8 +18,11 @@
 - 介護をしているが、働く時間も限られていて自分の時間を保てず、どうしても悩みが相談できなくてストレスがたまり、どうにか心理的解決でもしたい時
 - また、介護中にできる自分でできる問題解決方法を探す時、有用な情報を発信したい時
 
-## 設計書（後ほど作成）
-
+## 設計書
+[WBSシート](https://docs.google.com/spreadsheets/d/1sUonzj5WN-Y-Hj7LOcUVCOBwkzv1Atl3pXPHpPBz39w/edit?usp=drive_link)
+[UIflow](https://drive.google.com/file/d/13qlcr-WtQ33JpkQB-dUBqbYllA4oYhhB/view?usp=drive_link)
+[テーブル定義書](https://docs.google.com/spreadsheets/d/1UOIlNOWEmXz8RI7t_FDPhhGcdWoGmKDW1uwkCfny-1A/edit?usp=drive_link)
+[アプリケーション詳細設計書](https://docs.google.com/spreadsheets/d/1ls5Mk0z6axIZN71KSSeD6RzNe1B9yX3lp1OkqkD2jeg/edit?usp=drive_link)
 ​
 ## 開発環境
 - OS：Linux(CentOS)
