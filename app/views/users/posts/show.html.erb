@@ -1,3 +1,4 @@
+<!-- app/views/posts/show.html.erb -->
 <div class="container mt-4">
   <div class="card p-4 shadow-sm">
     <!-- 投稿タイトル -->
@@ -34,6 +35,32 @@
         <%= link_to '編集', edit_post_path(@post), class: 'btn btn-primary mx-2' %>
       <% end %>
       <%= link_to '戻る', posts_path, class: 'btn btn-secondary mx-2' %>
+    </div>
+
+    <!-- コメントフォームを追加 -->
+    <div class="mt-4">
+    <% if @post_comment.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @post_comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+      <%= render "users/comments/form", post: @post, post_comment: @post_comment %>
+    </div>
+
+    <!-- コメント一覧を表示 -->
+    <div class="mt-4">
+      <h4>コメント一覧</h4>
+      <% @post.comments.each do |comment| %>
+        <div class="mb-3">
+          <p><%= comment.comment %></p>
+          <p class="text-muted"><strong>コメント投稿者:</strong> <%= comment.user.name %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

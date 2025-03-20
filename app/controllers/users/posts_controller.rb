@@ -24,6 +24,7 @@ module Users
 
     def show
       @post = Post.find(params[:id])  # 指定されたIDの投稿を取得
+      @post_comment = @post.comments.build
     end
 
     def edit
