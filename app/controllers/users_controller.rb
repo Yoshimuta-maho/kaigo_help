@@ -1,16 +1,20 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def show
     @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to user_path(current_user) and return
+    end
     @posts = @user.posts
+    @post = Post.new
   end
 
   def edit
     @user = User.find(params[:id])
     unless @user == current_user
       redirect_to user_path(current_user), alert: '他のユーザーの情報は編集できません。'
+      return
     end
   end
 
@@ -51,7 +55,7 @@ class UsersController < ApplicationController
 
   def correct_user
     if current_user != User.find(params[:id]) # 現在のユーザーとIDが一致しない場合リダイレクト
-      redirect_to root_path, alert: '他のユーザーのアカウントを操作することはできません。'
+      redirect_to user_path(current_user), alert: '他のユーザーのアカウントを操作することはできません。'
     end
   end
 

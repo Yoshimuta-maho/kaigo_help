@@ -19,7 +19,7 @@ import { Carousel } from 'bootstrap';
 document.addEventListener('DOMContentLoaded', function () {
   var myCarousel = document.querySelector('#carouselExampleCaptions');
   var carousel = new Carousel(myCarousel, {
-    interval: 5000,  // スライドの切り替え間隔 (2秒)
+    interval: 5000,  // スライドの切り替え間隔 (5秒)
     ride: 'carousel' // 自動でスライドさせる
   });
 });

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user, :admin_signed_in?
   before_action :hide_user_name_for_admin
-  
+  before_action :authenticate_user!
 
   def admin_signed_in?
     current_user && current_user.admin?  # ユーザーが管理者なら true を返す
