@@ -3,6 +3,13 @@
     <!-- 投稿タイトル -->
     <h1 class="text-center mb-4"><%= @post.title %></h1>
 
+    <!-- いいねボタン -->
+    <% if user_signed_in? %>
+      <div id="like-area" class="text-center mb-3">
+        <%= render 'users/likes/like_button', post: @post %>
+      </div>
+    <% end %>
+
     <!-- 投稿者情報 -->
     <div class="d-flex align-items-center mb-3">
       <%= image_tag(@post.user.image_icon.present? ? @post.user.image_icon : "default_icon.png", class: "rounded-circle mr-3", width: 50, height: 50) %>

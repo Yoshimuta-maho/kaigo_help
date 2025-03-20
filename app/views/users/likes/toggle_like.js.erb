@@ -1,0 +1,9 @@
+<% if current_user.likes.exists?(post: @post) %>
+  // いいねされている場合、ハートを赤に変更
+  $('#like-button-<%= @post.id %> .fa-heart').removeClass('fa-regular').addClass('fa-solid');
+  $('#like-button-<%= @post.id %>').removeClass('btn-primary').addClass('btn-danger');
+<% else %>
+  // いいねされていない場合、ハートをグレーに戻す
+  $('#like-button-<%= @post.id %> .fa-heart').removeClass('fa-solid').addClass('fa-regular');
+  $('#like-button-<%= @post.id %>').removeClass('btn-danger').addClass('btn-primary');
+<% end %>

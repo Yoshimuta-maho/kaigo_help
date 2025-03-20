@@ -15,18 +15,19 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }, module: :users
   
-
   root 'homes#top'
   get "/about" => "homes#about", as: "about"
-
+  
   resources :users, only: [:edit, :destroy, :update, :show]
   resources :genres, only: [:index]
   resources :groups
-  resources :posts, module: :users
-  resources :likes, only: [:create, :destroy]
-  resources :genres, only: [:index]
-  resources :groups
-  resources :posts, only: [:index], controller: 'users/posts' # すべての投稿一覧用
-  resources :likes, only: [:create, :destroy]
+  
+  # postsリソースにmodule: :usersを指定。likeリソースもネスト
+  resources :posts, module: :users do
+    resource :like, only: [:create, :destroy]  # Likeのルーティングをpostsにネスト
+  end
+  
+  # 投稿の一覧はusers/postsコントローラで処理
+  resources :posts, only: [:index], controller: 'users/posts'  
 end
 
