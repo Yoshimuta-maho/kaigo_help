@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # 管理者用のルーティング（namespace）
   namespace :admin do
     root to: 'homes#top'
     resources :genres, only: [:new, :index, :show, :edit, :create, :update]
@@ -8,12 +7,17 @@ Rails.application.routes.draw do
     resources :group_users, only: [:show, :edit, :update]
   end
 
+  # Deviseの管理者ログイン/ログアウト
+  devise_for :admins, path: 'admin', controllers: {
+    sessions: 'admin/sessions'
+  }
+
   # ユーザー用のルーティング
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
     passwords: 'users/passwords'
-  }, module: :users
+  }
 
   root 'homes#top'
   get "/about" => "homes#about", as: "about"
@@ -22,13 +26,9 @@ Rails.application.routes.draw do
   resources :genres, only: [:index]
   resources :groups
 
-  # postsリソースにmodule: :usersを指定。likeリソースもネスト
-  resources :posts, module: :users, only: [:index, :show, :edit, :update] do
-    resource :like, only: [:create, :destroy]  # Likeのルーティングをpostsにネスト
-    resources :comments, only: [:create, :destroy]  # コメントのリソースをネスト
-  end
-
-  # 投稿の一覧はusers/postsコントローラで処理
-  resources :posts, only: [:index], controller: 'users/posts'  
+  # ネストされたresourcesでpostsリソースを管理
+  resources :posts, module: :users do
+    resources :comments, only: [:create, :destroy]
+    resource :like, only: [:create, :destroy]
+  end  # このendは、postsブロックを閉じるendです
 end
-

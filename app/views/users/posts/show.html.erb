@@ -58,7 +58,9 @@
       <% @post.comments.each do |comment| %>
         <div class="mb-3">
           <p><%= comment.comment %></p>
-          <p class="text-muted"><strong>コメント投稿者:</strong> <%= comment.user.name %></p>
+          <% if comment.user.present? %>
+              <p class="text-muted"><strong>コメント投稿者:</strong> <%= comment.user.name %></p>
+          <% end %>
         </div>
       <% end %>
     </div>

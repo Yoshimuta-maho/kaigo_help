@@ -5,13 +5,9 @@ class DeviseCreateGroupUsers < ActiveRecord::Migration[6.1]
     create_table :group_users do |t|
       ## Database authenticatable
       t.integer :user_id
-      t.integer :group_user_id
+      t.integer :group_id
       # t.string :email,              null: false, default: ""
       # t.string :encrypted_password, null: false, default: ""
-
-      ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
 
       ## Rememberable
       # t.datetime :created_at, default: -> { 'CURRENT_TIMESTAMP' }

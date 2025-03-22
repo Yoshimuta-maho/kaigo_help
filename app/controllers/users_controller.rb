@@ -54,9 +54,11 @@ class UsersController < ApplicationController
   private
 
   def correct_user
-    if current_user != User.find(params[:id]) # 現在のユーザーとIDが一致しない場合リダイレクト
-      redirect_to user_path(current_user), alert: '他のユーザーのアカウントを操作することはできません。'
-    end
+  if current_user.nil?
+    redirect_to new_session_path, alert: 'ログインしてください'
+  elsif current_user.id.to_s != params[:id]
+    redirect_to user_path(current_user), alert: '他のユーザーのアカウントを操作することはできません。'
+  end
   end
 
   def user_params

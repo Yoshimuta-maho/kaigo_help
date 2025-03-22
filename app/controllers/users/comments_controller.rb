@@ -5,7 +5,7 @@ class Users::CommentsController < ApplicationController
     @post_comment.user = current_user  # 現在のユーザーを設定
 
     if @post_comment.save
-      redirect_to user_post_path(current_user, @post), notice: 'コメントが投稿されました'
+      redirect_to post_path(@post), notice: 'コメントが投稿されました'
     else
       # コメントが空など、保存できなかった場合にエラーメッセージを表示
       render 'users/posts/show', alert: 'コメントを入力してください'
