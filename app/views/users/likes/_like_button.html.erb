@@ -1,8 +1,8 @@
-<% if @post.likes.exists?(user: current_user) %>
+<% if current_user.like?(post) %>
   <%= link_to post_like_path(post), method: :delete,  style: "color: red;", remote: true do %>
     <i class="fas fa-heart" aria-hidden="true"></i>いいね！
   <% end %>
-  <% else %>
+<% else %>
   <%= link_to post_like_path(post), method: :post, remote: true do %>
     <i class="fas fa-heart" aria-hidden="true"></i>
   <% end %>

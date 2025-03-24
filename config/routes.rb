@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    root to: 'homes#top'
-    resources :genres, only: [:new, :index, :show, :edit, :create, :update]
-    resources :users, only: [:index, :show, :edit, :update]
-    resources :groups, only: [:show, :update, :edit, :create]
-    resources :group_users, only: [:show, :edit, :update]
-  end
-
   # Deviseの管理者ログイン/ログアウト
   devise_for :admins, path: 'admin', controllers: {
     sessions: 'admin/sessions'
@@ -19,16 +11,27 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  namespace :admin do
+    root to: "users#index"
+    resources :genres, only: [:new, :index, :show, :edit, :create, :update]
+    resources :users, only: [:index, :show, :edit, :update]
+    resources :posts, only: [:index, :show, :edit, :update, :destroy]
+    resources :groups, only: [:show, :update, :edit, :create]
+    resources :group_users, only: [:show, :edit, :update]
+  end
+
   root 'homes#top'
   get "/about" => "homes#about", as: "about"
 
   resources :users, only: [:edit, :destroy, :update, :show]
-  resources :genres, only: [:index]
-  resources :groups
+  scope module: :users do
+    resources :genres, only: [:index]
+    resources :groups
 
-  # ネストされたresourcesでpostsリソースを管理
-  resources :posts, module: :users do
-    resources :comments, only: [:create, :destroy]
-    resource :like, only: [:create, :destroy]
-  end  # このendは、postsブロックを閉じるendです
+    # ネストされたresourcesでpostsリソースを管理
+    resources :posts do
+      resources :comments, only: [:create, :destroy]
+      resource :like, only: [:create, :destroy]
+    end  # このendは、postsブロックを閉じるendです
+  end
 end

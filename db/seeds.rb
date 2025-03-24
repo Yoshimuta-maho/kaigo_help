@@ -9,8 +9,8 @@ if User.find_by(email: 'test@test').nil?
   )
 end
 
-if Admin.find_by(email: 'test@test').nil?
-  admin = Admin.new(email: 'test@test', password: 'password', password_confirmation: 'password')
+if Admin.find_by(email: 'test@admin').nil?
+  admin = Admin.new(email: 'test@admin', password: 'password', password_confirmation: 'password')
   admin.save!
 end
 

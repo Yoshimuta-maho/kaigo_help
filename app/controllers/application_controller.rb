@@ -2,11 +2,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :admin_signed_in?
   before_action :hide_user_name_for_admin
   #before_action :authenticate_user!
-  before_action :authenticate_admin!, if: -> { params[:controller].include?('admin') }
+  #before_action :authenticate_admin!, if: -> { params[:controller].include?('admin') }
 
-  def admin_signed_in?
-    current_user && current_user.admin?  # ユーザーが管理者なら true を返す
-  end
+  #def admin_signed_in?
+  #  current_user && current_user.admin?  # ユーザーが管理者なら true を返す
+  #end
 
   # ログイン後のリダイレクト先
   def after_sign_in_path_for(resource)
