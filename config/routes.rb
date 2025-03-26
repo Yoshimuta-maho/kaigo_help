@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       end
     end
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
-    resources :groups, only: [:show, :update, :edit, :create]
+    resources :groups
     resources :group_users, only: [:show, :edit, :update]
   end
 
