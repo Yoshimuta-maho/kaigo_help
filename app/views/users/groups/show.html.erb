@@ -1,0 +1,26 @@
+<!-- app/views/users/groups/show.html.erb -->
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <div class="text-center">
+      <% if @group.group_icon.attached? %>
+        <%= image_tag @group.group_icon, class: 'img-fluid rounded-circle mb-3', size: '150x150' %>
+      <% else %>
+        <%= image_tag 'default_group_icon.jpg', class: 'img-fluid rounded-circle mb-3', size: '150x150' %>
+      <% end %>
+      <h2 class="mb-3"><%= @group.group_name %></h2>
+    </div>
+    
+    <div class="text-center mt-3">
+      <%= link_to '編集', edit_group_path(@group), class: 'btn btn-warning' %>
+      <%= link_to '削除', group_path(@group), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+      <%= link_to '戻る', groups_path, class: 'btn btn-secondary' %>
+    </div>
+    <div class="text-center mt-4">
+      <% if current_user && !@group.join_users.include?(current_user) %>
+        <%= button_to 'グループに参加', join_group_path(@group), method: :post, class: 'btn btn-success btn-lg' %>
+      <% else %>
+        <button class="btn btn-secondary btn-lg" disabled>参加済み</button>
+      <% end %>
+    </div>
+  </div>
+</div>

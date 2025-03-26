@@ -26,7 +26,11 @@ Rails.application.routes.draw do
   resources :users, only: [:edit, :destroy, :update, :show]
   scope module: :users do
     resources :genres, only: [:index]
-    resources :groups
+    resources :groups do
+      member do
+        post :join
+      end
+    end
 
     # ネストされたresourcesでpostsリソースを管理
     resources :posts do

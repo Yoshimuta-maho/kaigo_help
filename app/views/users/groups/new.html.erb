@@ -12,8 +12,14 @@
           <%= f.collection_select :genre_id, Genre.all, :id, :genre_name, { include_blank: "--select--" }, { class: "form-control" } %>
         </div>
 
+        <div class="mb-2">
+          <%= f.label :group_icon, "グループアイコン" %>
+          <%= f.file_field :group_icon, class: "form-control" %>
+        </div>
+
         <div class="my-4">
           <%= f.submit "登録する", class: "btn btn-primary" %>
+          <%= link_to "戻る", groups_path, class: "btn btn-secondary" %>
         </div>
       <% end %>
     </div>

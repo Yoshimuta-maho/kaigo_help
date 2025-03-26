@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update]
 
   def show
     @user = User.find(params[:id])
@@ -8,6 +8,7 @@ class UsersController < ApplicationController
     end
     @posts = @user.posts
     @post = Post.new
+    @joined_groups = @user.join_groups
   end
 
   def edit
@@ -54,11 +55,13 @@ class UsersController < ApplicationController
   private
 
   def correct_user
-  if current_user.nil?
-    redirect_to new_session_path, alert: 'ログインしてください'
-  elsif current_user.id.to_s != params[:id]
-    redirect_to user_path(current_user), alert: '他のユーザーのアカウントを操作することはできません。'
-  end
+    if params[:id].present?
+      if current_user.nil?
+        redirect_to new_session_path, alert: 'ログインしてください'
+      elsif current_user.id.to_s != params[:id]
+        redirect_to user_path(current_user), alert: '他のユーザーのアカウントを操作することはできません。'
+      end
+    end
   end
 
   def user_params
