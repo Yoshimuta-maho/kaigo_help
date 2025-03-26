@@ -1,0 +1,6 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+<p><%= @post.created_at.strftime('%Y-%m-%d %H:%M') %></p>
+
+<%= link_to '編集', edit_admin_post_path(@post), class: 'btn btn-warning' %>
+<%= link_to '戻る', admin_posts_path, class: 'btn btn-secondary' %>

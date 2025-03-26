@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    get 'posts/index'
+    get 'posts/show'
+    get 'posts/edit'
+    get 'posts/update'
+    get 'posts/destroy'
+  end
   # Deviseの管理者ログイン/ログアウト
   devise_for :admins, path: 'admin', controllers: {
     sessions: 'admin/sessions'
@@ -20,7 +27,7 @@ Rails.application.routes.draw do
         patch :enable
       end
     end
-    resources :posts, only: [:index, :show, :edit, :update, :destroy]
+    resources :posts
     resources :groups
     resources :group_users, only: [:show, :edit, :update]
   end
