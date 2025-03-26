@@ -1,0 +1,25 @@
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <div class="text-center">
+      <h2><%= @group.group_name %> - チャット</h2>
+    </div>
+
+    <!-- メッセージ一覧 -->
+    <div class="mt-4">
+      <% @messages.each do |message| %>
+        <div class="message-card mb-3">
+          <p><strong><%= message.user.name %>:</strong> <%= message.content %></p>
+          <p><small><%= message.created_at.strftime("%Y-%m-%d %H:%M:%S") %></small></p>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- メッセージ送信フォーム -->
+    <%= form_with model: @message, url: group_messages_path(@group), method: :post, local: true do |form| %>
+      <div class="form-group">
+        <%= form.text_area :content, class: 'form-control', rows: 3, placeholder: "メッセージを入力" %>
+      </div>
+      <%= form.submit '送信', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

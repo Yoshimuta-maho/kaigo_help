@@ -5,4 +5,5 @@ class Group < ApplicationRecord
   belongs_to :user # グループのオーナー
   has_many :group_users, dependent: :destroy
   has_many :join_users, through: :group_users, source: :user
+  has_many :messages, dependent: :destroy
 end

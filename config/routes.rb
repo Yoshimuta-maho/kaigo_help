@@ -29,7 +29,10 @@ Rails.application.routes.draw do
     resources :groups do
       member do
         post :join
+        get :chat, to: 'groups#chat'
+        delete :leave
       end
+      resources :messages, only: [:create]
     end
 
     # ネストされたresourcesでpostsリソースを管理
