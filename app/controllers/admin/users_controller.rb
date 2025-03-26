@@ -22,9 +22,21 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def disable
+    @user = User.find(params[:id])
+    @user.update(is_active: false)
+    redirect_to admin_users_path, notice: "#{@user.name}さんは無効になりました"
+  end
+
+  def enable
+    @user = User.find(params[:id])
+    @user.update(is_active: true)
+    redirect_to admin_users_path, notice: "#{@user.name}さんは有効になりました"
+  end
+  
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :role)
+    params.require(:user).permit(:name, :email, :is_active)
   end
 end
