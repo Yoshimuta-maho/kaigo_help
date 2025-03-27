@@ -13,7 +13,7 @@
       <% end %>
 
       <div class="d-flex justify-content-center gap-2 mt-3">
-        <%= link_to "新規投稿", new_post_path, class: "btn btn-success flex-shrink-0 mt-3" %>
+        <%= link_to "新規投稿", new_post_path(current_user), class: "btn btn-success flex-shrink-0 mt-3" %>
       </div>
     </div>
   </div>
@@ -34,6 +34,23 @@
       </div>
     <% else %>
       <p>まだ投稿はありません。</p>
+    <% end %>
+  </div>
+
+  <!-- ユーザーが参加しているグループ -->
+  <div class="card p-4 mt-4">
+    <h3><%= @user.name %> さんが参加しているグループ</h3>
+
+    <% if @joined_groups.any? %>
+      <ul class="list-group">
+        <% @joined_groups.each do |group| %>
+          <li class="list-group-item">
+            <%= link_to group.group_name, group_path(group), class: 'btn btn-link' %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>まだ参加しているグループはありません。</p>
     <% end %>
   </div>
 </div>

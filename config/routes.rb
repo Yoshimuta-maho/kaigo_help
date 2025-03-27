@@ -1,33 +1,56 @@
 Rails.application.routes.draw do
-  # 管理者用のルーティング（namespace）
   namespace :admin do
-    root to: 'homes#top'
-    resources :genres, only: [:new, :index, :show, :edit, :create, :update]
-    resources :users, only: [:index, :show, :edit, :update]
-    resources :groups, only: [:show, :update, :edit, :create]
-    resources :group_users, only: [:show, :edit, :update]
+    get 'posts/index'
+    get 'posts/show'
+    get 'posts/edit'
+    get 'posts/update'
+    get 'posts/destroy'
   end
+  # Deviseの管理者ログイン/ログアウト
+  devise_for :admins, path: 'admin', controllers: {
+    sessions: 'admin/sessions'
+  }
 
   # ユーザー用のルーティング
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
     passwords: 'users/passwords'
-  }, module: :users
-  
+  }
+
+  namespace :admin do
+    root to: "users#index"
+    resources :genres, only: [:new, :index, :show, :edit, :create, :update]
+    resources :users do
+      member do
+        patch :disable
+        patch :enable
+      end
+    end
+    resources :posts
+    resources :groups
+    resources :group_users, only: [:show, :edit, :update]
+  end
+
   root 'homes#top'
   get "/about" => "homes#about", as: "about"
-  
-  resources :users, only: [:edit, :destroy, :update, :show]
-  resources :genres, only: [:index]
-  resources :groups
-  
-  # postsリソースにmodule: :usersを指定。likeリソースもネスト
-  resources :posts, module: :users do
-    resource :like, only: [:create, :destroy]  # Likeのルーティングをpostsにネスト
-  end
-  
-  # 投稿の一覧はusers/postsコントローラで処理
-  resources :posts, only: [:index], controller: 'users/posts'  
-end
 
+  resources :users, only: [:edit, :destroy, :update, :show]
+  scope module: :users do
+    resources :genres, only: [:index]
+    resources :groups do
+      member do
+        post :join
+        get :chat, to: 'groups#chat'
+        delete :leave
+      end
+      resources :messages, only: [:create]
+    end
+
+    # ネストされたresourcesでpostsリソースを管理
+    resources :posts do
+      resources :comments, only: [:create, :destroy]
+      resource :like, only: [:create, :destroy]
+    end  # このendは、postsブロックを閉じるendです
+  end
+end

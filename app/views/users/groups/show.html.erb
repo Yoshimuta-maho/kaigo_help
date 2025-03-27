@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <div class="text-center">
+      <% if @group.group_icon.attached? %>
+        <%= image_tag @group.group_icon, class: 'img-fluid rounded-circle mb-3', size: '150x150' %>
+      <% else %>
+        <%= image_tag 'default_group_icon.jpg', class: 'img-fluid rounded-circle mb-3', size: '150x150' %>
+      <% end %>
+      <h2 class="mb-3"><%= @group.group_name %></h2>
+      <!-- 参加者人数をタイトル横に表示 -->
+      <small class="text-muted"><%= @group.join_users.count %> 人が参加しています</small>
+    </div>
+
+    <div class="text-center mt-4">
+      <% if current_user && @group.join_users.include?(current_user) %>
+        <%= link_to '交流を始める', chat_group_path(@group), class: 'btn btn-primary btn-lg' %>
+      <% end %>
+    </div>
+    <div class="text-center mt-4">
+      <% if @group.join_users.include?(current_user) %>
+      <%= link_to 'グループを脱退する', leave_group_path(@group), method: :delete, class: 'btn btn-danger' %>
+    <% end %>
+    </div>
+    <% if @group && @group.user == current_user %> 
+      <div class="text-center mt-3">
+        <%= link_to '編集', edit_group_path(@group), class: 'btn btn-warning' %>
+        <%= link_to '削除', group_path(@group), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+        <%= link_to '戻る', groups_path, class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-4">
+      <% if current_user && !@group.join_users.include?(current_user) %>
+        <%= button_to 'グループに参加', join_group_path(@group), method: :post, class: 'btn btn-success btn-lg' %>
+      <% else %>
+        <button class="btn btn-secondary btn-lg" disabled>参加済み</button>
+      <% end %>
+    </div>
+
+    <!-- 参加者一覧 -->
+    <div class="mt-4">
+      <h4>参加者一覧</h4>
+      <small class="text-muted"><%= @group.join_users.count %> 人が参加しています</small>
+      <% if @group.join_users.any? %>
+        <ul class="list-group">
+          <% @group.join_users.each do |user| %>
+            <li class="list-group-item">
+              <%= link_to user.name, user_path(user.id), class: 'btn btn-link' %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p>まだ参加者はいません。</p>
+      <% end %>
+    </div>
+  </div>
+</div>

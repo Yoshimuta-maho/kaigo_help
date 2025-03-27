@@ -49,8 +49,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # //必須ではないがupdate後にtop画面にリダイレクトするメソッド
-  def after_update_path_for(_resource)
-    blogs_path
+  def after_update_path_for(resource)
+    pp "after_update_path_for"
+    sign_in(resource,bypass: true)
+    user_path(resource)
   end
 
   def configure_account_update_params

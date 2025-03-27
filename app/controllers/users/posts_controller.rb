@@ -4,8 +4,12 @@ module Users
 
     # 投稿一覧
     def index
-      @posts = Post.all.order(created_at: :desc)  # 投稿を新しい順に取得
+      @posts = Post.order(created_at: :desc)  # 新しい順に取得
+    
+      @posts = @posts.where("genre LIKE ?", "%#{params[:genre]}%") if params[:genre].present?
+      @posts = @posts.where("comment LIKE ?", "%#{params[:comment]}%") if params[:comment].present?
     end
+    
 
     # 新規投稿画面
     def new
@@ -24,6 +28,7 @@ module Users
 
     def show
       @post = Post.find(params[:id])  # 指定されたIDの投稿を取得
+      @post_comment = @post.comments.build
     end
 
     def edit

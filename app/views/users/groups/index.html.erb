@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">グループ一覧</h1>
+
+  <div class="text-end mb-3">
+    <%= link_to '新規グループ作成', new_group_path, class: 'btn btn-primary' %>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @groups.each do |group| %>
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <% if group.group_icon.attached? %>
+              <%= image_tag group.group_icon, class: 'img-fluid rounded-circle mb-3', size: '100x100' %>
+            <% else %>
+              <%= image_tag 'default_group_icon.jpg', class: 'img-fluid rounded-circle mb-3', size: '100x100' %>
+            <% end %>
+          </div>
+          <div class="card-footer text-center">
+            <h5 class="card-title"><%= group.group_name %></h5>
+            <%= link_to '詳細', group_path(group), class: 'btn btn-info btn-sm' %>
+            <% if @group && @group.user == current_user %> 
+              <%= link_to '編集', edit_group_path(group), class: 'btn btn-warning btn-sm' %>
+              <%= link_to '削除', group_path(group), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

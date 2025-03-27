@@ -1,0 +1,24 @@
+<h1 class="my-4">ユーザー情報編集</h1>
+
+<%= form_with(model: @user, url: admin_user_path(@user), local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :name, class: 'form-label' %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :is_active, class: 'form-label' %>
+    <%= f.select :is_active, options_for_select(['管理者', '一般ユーザー'], @user.is_active), class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit '更新', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', admin_user_path(@user), class: 'btn btn-secondary' %>
