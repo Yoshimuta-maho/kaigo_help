@@ -33,14 +33,14 @@ class User < ApplicationRecord
   #  self.admin.present?
   #end
   
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.slice(:name)
-    if conditions[:name].present?
-      where(conditions).first
-    else
-      super
-    end
-  end
+  # def self.find_for_database_authentication(warden_conditions)
+  #   conditions = warden_conditions.slice(:name)
+  #   if conditions[:name].present?
+  #     where(conditions).first
+  #   else
+  #     super
+  #   end
+  # end
 
   def like(post)
     self.likes.find_or_create_by(post: post)

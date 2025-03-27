@@ -3,9 +3,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if @user != current_user
-      redirect_to user_path(current_user) and return
-    end
+    # if @user != current_user
+    #   pp current_user
+    #   redirect_to user_path(current_user) and return
+    # end
     @posts = @user.posts
     @post = Post.new
     @joined_groups = @user.join_groups
@@ -35,6 +36,7 @@ class UsersController < ApplicationController
     end
   
     if @user.update(user_params)
+      sign_in(@user,bypass: true)
       redirect_to @user, notice: 'プロフィールが更新されました。'
     else
       render :edit
@@ -65,6 +67,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :image_icon)
+    params.require(:user).permit(:name, :email, :image_icon, :password, :password_confirmation)
   end
 end

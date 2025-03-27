@@ -49,7 +49,7 @@
               <li class="nav-item">
                 <%= form_with url: posts_path, method: :get, local: true, class: 'form-inline' do %>
                   <div class="input-group">
-                    <%= text_field_tag :genre, params[:genre], placeholder: "ジャンル", class: "form-control mr-2" %>
+                    <%# <%= text_field_tag :genre, params[:genre], placeholder: "ジャンル", class: "form-control mr-2" %>
                     <%= text_field_tag :comment, params[:comment], placeholder: "コメント", class: "form-control mr-2" %>
                     <div class="input-group-append">
                       <%= submit_tag "検索", class: "btn btn-outline-secondary" %>
