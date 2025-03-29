@@ -10,7 +10,8 @@ class Users::MessagesController < ApplicationController
       redirect_to chat_group_path(@group)  # チャットページにリダイレクト
     else
       # メッセージが保存されなかった場合の処理
-      render 'chat'
+      @messages = @group.messages.order(created_at: :asc)
+      render 'users/groups/chat'
     end
   end
 

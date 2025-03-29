@@ -14,6 +14,17 @@
       <% end %>
     </div>
 
+      <% if @message.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>投稿の保存に失敗しました:</h4>
+      <ul>
+        <% @message.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
     <!-- メッセージ送信フォーム -->
     <%= form_with model: @message, url: group_messages_path(@group), method: :post, local: true do |form| %>
       <div class="form-group">
