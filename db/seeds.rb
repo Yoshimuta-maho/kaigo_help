@@ -14,3 +14,10 @@ if Admin.find_by(email: 'test@admin').nil?
   admin.save!
 end
 
+if Genre.find_by(genre_name: '悩み').nil?
+  Genre.new(genre_name:"悩み").save
+end
+
+if Genre.find_by(genre_name: '方法').nil?
+  Genre.new(genre_name:"方法").save
+end
