@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: "users#index"
-    resources :genres, only: [:new, :index, :show, :edit, :create, :update]
+    resources :genres
     resources :users do
       member do
         patch :disable

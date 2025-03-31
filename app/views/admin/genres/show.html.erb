@@ -1,0 +1,8 @@
+<h1>ジャンル詳細</h1>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">グループ名: <%= @genre.genre_name %></h5>
+    <p><strong>作成日:</strong> <%= @genre.created_at.strftime("%Y-%m-%d %H:%M:%S") %></p>
+    <%= link_to '戻る', admin_genres_path, class: 'btn btn-secondary' %>
+  </div>
+</div>
