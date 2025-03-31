@@ -1,0 +1,29 @@
+<h1>ジャンル一覧</h1>
+
+<div class="text-end mb-3">
+    <%= link_to '新規ジャンル作成', new_admin_genre_path, class: 'btn btn-primary' %>
+  </div>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ジャンル名</th>
+        <th>作成日</th>
+        <th>アクション</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @genres.each do |genre| %>
+        <tr>
+          <td><%= genre.genre_name %></td>
+          <td><%= genre.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+          <td>
+            <%= link_to '詳細', admin_genre_path(genre), class: 'btn btn-info btn-sm' %>
+            <%= link_to '編集', edit_admin_genre_path(genre), class: 'btn btn-warning btn-sm' %>
+            <%= link_to '削除', admin_genre_path(genre), method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
