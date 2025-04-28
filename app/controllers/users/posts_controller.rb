@@ -7,7 +7,7 @@ module Users
       @posts = Post.order(created_at: :desc)  # 新しい順に取得
     
       @posts = @posts.where("genre LIKE ?", "%#{params[:genre]}%") if params[:genre].present?
-      @posts = @posts.where("comment LIKE ?", "%#{params[:comment]}%") if params[:comment].present?
+      @posts = @posts.where("body LIKE ?", "%#{params[:body]}%") if params[:body].present?
     end
     
 
